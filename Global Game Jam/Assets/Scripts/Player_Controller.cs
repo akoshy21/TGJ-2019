@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public BoxCollider2D bc;
+    public PolygonCollider2D pc;
 
     public KeyCode upKey;
     public KeyCode downKey;
@@ -34,5 +34,13 @@ public class Player_Controller : MonoBehaviour
       //  Debug.Log(rb.velocity);
       //  Debug.Log("Vertical: " + Input.GetAxis("LVertical"));
       //  Debug.Log("Horizontal: " + Input.GetAxis("LHorizontal"));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            Debug.Log("DEAD");
+        }
     }
 }
