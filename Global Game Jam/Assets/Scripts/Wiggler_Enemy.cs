@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rush_Enemy : MonoBehaviour
+public class Wiggler_Enemy : MonoBehaviour
 {
-
     public Rigidbody2D rb;
     public CircleCollider2D cc;
 
     public GameObject enemySpawner;
     Enemy_Spawner spawner;
 
-    float speed;
+    public float speed;
+
+    public float ydir = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,17 +26,24 @@ public class Rush_Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(-1 * speed, 0);
+        if(transform.position.y > 0)
+        {
+            ydir -= 0.3f;
+        }
+        if(transform.position.y < 0)
+        {
+            ydir += 0.3f;
+        }
+        rb.velocity = new Vector2(-1 * speed/2.0f, ydir);
     }
 
 
     private void OnTriggerExit2D(Collider2D collision)
-    {       
-            if (collision.tag == "Border")
-            {
+    {
+        if (collision.tag == "Border")
+        {
             Debug.Log("exit");
             Destroy(gameObject);
-            }
+        }
     }
-
 }
