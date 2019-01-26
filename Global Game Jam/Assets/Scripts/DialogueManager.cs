@@ -70,4 +70,40 @@ public class DialogueManager : MonoBehaviour
             "I’m still hungry."
             );
     }
+
+    void BeatTwo()
+    {
+        story[2] = new Beat("Damn it. I don’t have any cash.",
+            2,
+            "So no on the taquitos?",
+            null,
+            "Lol same.",
+            null);
+
+        story[2].rectReact = false;
+        story[2].rectPrompt = new Beat(
+            "*Sigh* Do you have any cash?",
+            1,
+            "Nope",
+            null
+            );
+
+        story[2].rectPrompt.rectReact = false;
+        story[2].rectPrompt.rectPrompt = new Beat(
+            "Guess I’ll die, then!",
+            1,
+            "*Gargle sympathetically*",
+            "You're a freak!"
+            );
+
+        story[2].circPrompt = new Beat(
+            "*Groans*",
+            2,
+            "*Gargle sympathetically*",
+            "You’re a freak!",
+            "...",
+            null
+            );
+
+    }
 }
