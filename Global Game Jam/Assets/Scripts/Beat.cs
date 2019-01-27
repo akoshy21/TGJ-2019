@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Beat : MonoBehaviour
+public class Beat
 {
     public string prompt;
 
     public int rCount;
+    public int delay;
 
     public string rectResponse;
     public bool rectReact = true; // if true, rectangle has a 'Reaction' and does not trigger 'rectPrompt' 
@@ -28,19 +29,21 @@ public class Beat : MonoBehaviour
     public string xReaction;
     public Beat xPrompt;
 
-    public Beat(string p, int r, string rr, string rreaction)
+    public Beat(string p, int r, string rr, string rreaction, int d)
     {
         prompt = p;
         rCount = r;
+        delay = d;
 
         rectResponse = rr;
         rectReaction = rreaction;
     }
 
-    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction)
+    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, int d)
     {
         prompt = p;
         rCount = r;
+        delay = d;
 
         rectResponse = rr;
         rectReaction = rreaction;
@@ -48,10 +51,11 @@ public class Beat : MonoBehaviour
         circReaction = creaction;
     }
 
-    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction)
+    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, int d)
     {
         prompt = p;
         rCount = r;
+        delay = d;
 
         rectResponse = rr;
         rectReaction = rreaction;
@@ -61,10 +65,11 @@ public class Beat : MonoBehaviour
         triReaction = treaction;
     }
 
-    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, string xr, string x_reaction)
+    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, string xr, string x_reaction, int d)
     {
         prompt = p;
         rCount = r;
+        delay = d;
 
         rectResponse = rr;
         rectReaction = rreaction;
