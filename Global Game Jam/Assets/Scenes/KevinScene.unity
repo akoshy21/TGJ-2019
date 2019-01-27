@@ -5801,18 +5801,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TVStand
       objectReference: {fileID: 0}
-    - target: {fileID: 400116, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.701
-      objectReference: {fileID: 0}
-    - target: {fileID: 400116, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.399
-      objectReference: {fileID: 0}
-    - target: {fileID: 400116, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.125
-      objectReference: {fileID: 0}
     - target: {fileID: 400132, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.760719
@@ -5868,6 +5856,18 @@ PrefabInstance:
     - target: {fileID: 400132, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
       propertyPath: m_LocalScale.z
       value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.701
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.399
+      objectReference: {fileID: 0}
+    - target: {fileID: 400116, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.125
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 1fbdc3c5370cf81408fff0f3d57528f7, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -8446,6 +8446,7 @@ MonoBehaviour:
   spawnReset: 125
   enemySpeed: 5
   wigglerChance: 15
+  player: {fileID: 192819565}
 --- !u!1001 &2064222003
 PrefabInstance:
   m_ObjectHideFlags: 0

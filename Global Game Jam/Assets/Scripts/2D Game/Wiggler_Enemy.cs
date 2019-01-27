@@ -19,20 +19,24 @@ public class Wiggler_Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         enemySpawner = GameObject.Find("Spawner");
-        spawner = enemySpawner.GetComponent<Enemy_Spawner>();
-        speed = spawner.enemySpeed;
+        spawner = enemySpawner.GetComponent<Enemy_Spawner>();       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y > 0)
+        speed = spawner.enemySpeed;
+        if (transform.position.y > 0)
         {
             ydir -= 0.3f;
         }
         if(transform.position.y < 0)
         {
             ydir += 0.3f;
+        }
+        if (speed <= 0)
+        {
+            Destroy(gameObject);
         }
         rb.velocity = new Vector2(-1 * speed/2.0f, ydir);
     }

@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
+    public AudioSource audioPlayer;
+    public AudioClip ouch;
+    public AudioClip Oof;
+    public AudioClip goodboy;
+
+    public bool dead;
+    int deathcount = 0;
+
     public Image lives;
     public float curLives;
     public float maxLives;
@@ -29,8 +37,15 @@ public class Player_Controller : MonoBehaviour
 
     float magnitude = 0f;
 
+    private Vector3 startPos;
+
+    public GameObject enemySpawner;
+    private Enemy_Spawner es;
+
     void Start()
     {
+        es = enemySpawner.GetComponent<Enemy_Spawner>();
+        startPos = transform.position;
         skore = 0;
         rb = GetComponent<Rigidbody2D>();
         mainCamStart = mainCam.transform.position;
@@ -40,21 +55,43 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        skore += 1;
-        score.text = ("" + (skore / 10));
-        rb.velocity = new Vector2(Input.GetAxis("LHorizontal")*pSpd, Input.GetAxis("LVertical")*pSpd);
-        lives.fillAmount = curLives / maxLives;
+        if (curLives <= 0)
+        {
+            dead = true;
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            dead = false;
+            skore += 1;
+            score.text = ("" + (skore / 10));
+            rb.velocity = new Vector2(Input.GetAxis("LHorizontal") * pSpd, Input.GetAxis("LVertical") * pSpd);
+            lives.fillAmount = curLives / maxLives;
 
-        screenShake();
+            screenShake();
+        }
+        if(skore % 500 == 0)
+        {
+            audioPlayer.PlayOneShot(goodboy);
+        }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Enemy")
         {
-            Debug.Log("DEAD");
+            
             shaking = true;
             curLives -= 1;
+            if(curLives > 0)
+            {
+                audioPlayer.PlayOneShot(ouch);
+            }
+            else
+            {
+                audioPlayer.PlayOneShot(Oof);
+            }
         }
     }
 
@@ -80,5 +117,15 @@ public class Player_Controller : MonoBehaviour
                 mainCam.transform.position = mainCamStart;
             }
         }
+    }
+
+    public void Reset()
+    {
+        transform.position = startPos;
+        curLives = maxLives;
+        skore = 0;
+        es.Reset();
+        dead = false;
+        deathcount += 1;
     }
 }
