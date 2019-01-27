@@ -22,15 +22,15 @@ public class starBackerScript : MonoBehaviour
 
         this.transform.position += Vector3.right * -Time.deltaTime;
 
-        if (curX < 0 && lastX >= 0)
+        if (curX < 46 && lastX >= 46)
         {
             Transform backerInstance = Instantiate(
                 backer,
-                new Vector3(this.transform.position.x + 28f, 0, 0),
+                new Vector3(this.transform.position.x + 28f, 0, 10),
                 Quaternion.identity
             );
         }
-        if (curX < -28 && lastX >= -28)
+        if (curX < 15)
         {
             Destroy(this.gameObject);
         }
