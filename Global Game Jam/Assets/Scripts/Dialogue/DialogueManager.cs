@@ -59,7 +59,7 @@ public class DialogueManager : MonoBehaviour
     void Update()
     {
         CheckStart();
-        TimedStart();
+        StartCoroutine(TimedStart());
         if (start) {
             audioPlayer();
             StartCoroutine(CheckInput());
@@ -74,8 +74,16 @@ public class DialogueManager : MonoBehaviour
             FadeInFunc();
         }
 
-        End();
+        StartCoroutine(End());
 
+    }
+
+    void Escape()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
 
@@ -125,8 +133,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (beatIndex == 12)
         {
-            yield return new WaitForSeconds(10);
             start = false;
+            yield return new WaitForSeconds(10);
             thought.gameObject.SetActive(false);
             promptBubble.gameObject.SetActive(false);
         }
@@ -134,7 +142,8 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TimedStart()
     {
-        yield return new WaitForSeconds(10);
+        Debug.Log("Started timer");
+        yield return new WaitForSeconds(35);
         if (!start)
         {
             start = true;
