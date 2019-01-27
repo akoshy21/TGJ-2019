@@ -104,9 +104,13 @@ public class DialogueManager : MonoBehaviour
                     beatIndex++;
 
                     ActivateButtons(false);
+                    yield return new WaitForSeconds(1);
                     prompt.text = currentBeat.rectReaction;
                     Debug.Log(currentBeat.rectReaction);
-                    yield return new WaitForSeconds(currentBeat.delay);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(false);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(true);
                     MoveBeat(story[beatIndex]);
                     ActivateButtons(true);
                 }
@@ -128,8 +132,12 @@ public class DialogueManager : MonoBehaviour
                     beatIndex++;
 
                     ActivateButtons(false);
+                    yield return new WaitForSeconds(1);
                     prompt.text = currentBeat.circReaction;
-                    yield return new WaitForSeconds(currentBeat.delay);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(false);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(true);
                     MoveBeat(story[beatIndex]);
                     ActivateButtons(true);
                 }
@@ -156,8 +164,12 @@ public class DialogueManager : MonoBehaviour
                     beatIndex++;
 
                     ActivateButtons(false);
+                    yield return new WaitForSeconds(1);
                     prompt.text = currentBeat.triReaction;
-                    yield return new WaitForSeconds(currentBeat.delay);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(false);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(true);
                     MoveBeat(story[beatIndex]);
                     ActivateButtons(true);
                 }
@@ -179,8 +191,12 @@ public class DialogueManager : MonoBehaviour
                     beatIndex++;
 
                     ActivateButtons(false);
+                    yield return new WaitForSeconds(1);
                     prompt.text = currentBeat.xReaction;
-                    yield return new WaitForSeconds(currentBeat.delay);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(false);
+                    yield return new WaitForSeconds(currentBeat.delay / 2);
+                    prompt.gameObject.SetActive(true);
                     MoveBeat(story[beatIndex]);
                     ActivateButtons(true);
                 }
@@ -257,7 +273,7 @@ public class DialogueManager : MonoBehaviour
 
     void InitStory()
     {
-        story = new Beat[10];
+        story = new Beat[12];
 
         BeatZero();
         BeatOne();
@@ -265,6 +281,12 @@ public class DialogueManager : MonoBehaviour
         BeatThree();
         BeatFour();
         BeatFive();
+        BeatSix();
+        BeatSeven();
+        BeatEight();
+        BeatNine();
+        BeatTen();
+        BeatEleven();
 
         currentBeat = story[0];
     }
@@ -304,7 +326,7 @@ public class DialogueManager : MonoBehaviour
             3,
             "Sure.",
             "Awesome, let me grab some stuff.",
-            "Not really.",
+            "I'd rather not.",
             "Oh...Guess I’ll go alone.",
             "Let me finish this first.",
             "Okay.",
@@ -405,7 +427,7 @@ public class DialogueManager : MonoBehaviour
             "Welp indeed.",
             "...",
             null,
-            8
+            6
             );
 
         story[4].circReact = false;
@@ -416,7 +438,7 @@ public class DialogueManager : MonoBehaviour
                 "Yeah...Maybe. I don't know.",
                 "...",
                 null,
-                8
+                6
             );
     }
 
@@ -459,6 +481,289 @@ public class DialogueManager : MonoBehaviour
             "I'm sorry...",
             "I don't even know what the point is but I've fucking lost it.",
             5
+            );
+    }
+
+    void BeatSix()
+    {
+        story[6] = new Beat(
+                "Sometimes, I dunno, I just think she hates me.",
+                4,
+                "Why?",
+                "I dunno, it just feels like she'd be happier if I weren't there. As if talking to me is a chore... or painful, even.",
+                "That's - no way.",
+                null,
+                "*Sarcastic* Same.",
+                null,
+                "Maybe it's just stress.",
+                null,
+                4
+            );
+
+        story[6].circReact = false;
+        story[6].circPrompt = new Beat(
+            "Yeah? Why not?",
+            2,
+            "You've been friends forever, right?",
+            "Yeah... But friends drift apart... You know.",
+            "You guys seem happy.",
+            "Yeah, but happy takes work now.",
+            4
+            );
+
+        story[6].triReact = false;
+        story[6].triPrompt = new Beat(
+            "You did spill hot tea on her.",
+            3,
+            "It was an accident!",
+            "Uhuh...",
+            "Ha, yeah I did.",
+            "Uhuh.",
+            "That was literally 2 years ago.",
+            "Well maybe you burned her feelings.",
+            4
+            );
+
+        story[6].xReact = false;
+        story[6].xPrompt = new Beat(
+            "Can't be man. It was like this even over break.",
+            1,
+            "Like what?",
+            "Desolate.",
+            4
+            );
+    }
+
+    void BeatSeven()
+    {
+        story[7] = new Beat(
+            "I'm just lost man.",
+            3,
+            "Well, what about you?",
+            null,
+            "Did something happen?",
+            null,
+            "Maybe you need a break.",
+            "Alex said if we took a break it wouldn't end.",
+            4
+            );
+
+        story[7].rectReact = false;
+        story[7].rectPrompt = new Beat(
+            "What about me?",
+            1,
+            "Do you hate her?",
+            "...",
+            4
+            );
+
+        story[7].circReact = false;
+        story[7].circPrompt = new Beat(
+            "Nope. I wish something would though.",
+            2,
+            "Don't talk like that.",
+            "Why not? At this point...",
+            "It'll be okay, right?",
+            "I wish I believed you.",
+            4
+            );
+    }
+
+    void BeatEight()
+    {
+        story[8] = new Beat(
+            "What should I do?",
+            3,
+            "Romantic gesture?",
+            null,
+            "I think you know.",
+            null,
+            "I'm sorry, I don't know.",
+            null,
+            8
+            );
+
+        story[8].rectReact = false;
+        story[8].rectPrompt = new Beat(
+            "Hah. Somehow I doubt flowers will be enough.",
+            1,
+            "What about *lots* of flowers?",
+            "*He flashes a faint smile*",
+            8
+            );
+
+        story[8].circReact = false;
+        story[8].circPrompt = new Beat(
+            "Yeah.",
+            2,
+            "I'm sorry man",
+            "Me too.",
+            "I love you buddy.",
+            null,
+            8
+            );
+
+        story[8].circPrompt.circReact = false;
+        story[8].circPrompt.circPrompt = new Beat(
+            "Love you too man.",
+            1,
+            "...",
+            "*He flashes a faint smile*",
+            8
+            );
+
+        story[8].triReact = false;
+        story[8].triPrompt = new Beat(
+            "It's okay man. I don't either...",
+            1,
+            "...",
+            "Thanks for listening though. It helps",
+            8
+            );
+    }
+
+    void BeatNine()
+    {
+        story[9] = new Beat(
+            "*He's staring off somewhere*",
+            3,
+            "Hey. It's not your fault.",
+            null,
+            "At least we put up with you.",
+            null,
+            "Don't get wound up by it.",
+            null,
+            1
+            );
+
+        story[9].rectReact = false;
+        story[9].rectPrompt = new Beat(
+            "Isn't it?",
+            2,
+            "No dumbass.",
+            null,
+            "Ain't anyone's faults.",
+            "I know...",
+            5
+            );
+
+        story[9].rectPrompt.rectReact = false;
+        story[9].rectPrompt.rectPrompt = new Beat(
+            "I don't know man.",
+            1,
+            "Well I do, you don't have to.",
+            "*He laughs*",
+            7
+            );
+
+        story[9].circReact = false;
+        story[9].circPrompt = new Beat(
+            "Aw shucks... Thanks 'dad'.",
+            2,
+            "I hate you, son.",
+            "*He beams*",
+            "1403's got your back, okay?",
+            "I know... Love you guys.",
+            7
+            );
+
+        story[9].triReact = false;
+        story[9].triPrompt = new Beat(
+            "What if I already am?",
+            1,
+            "...",
+            null,
+            1
+            );
+
+        story[9].triReact = false;
+        story[9].triPrompt = new Beat(
+            "What if I already am?",
+            1,
+            "...",
+            null,
+            1
+            );
+
+        story[9].triPrompt.triReact = false;
+        story[9].triPrompt.triPrompt = new Beat(
+            "...",
+            2,
+            "Well, whatever happens, I'll be here.",
+            "Hah. Of course. You haven't been outside in a fucking year.",
+            "Just... don't forget it'll be alright.",
+            "I won't.",
+            8
+            );
+    }
+
+    void BeatTen() {
+        story[10] = new Beat(
+            "*He yawns*",
+            3,
+            "Wish we had a window.",
+            null,
+            "You excited for tomorrow?",
+            null,
+            "I'm gonna miss this.",
+            null,
+            8
+            );
+
+        story[10].rectReact = false;
+        story[10].rectPrompt = new Beat(
+            "Yeah, I like to imagine New York's pretty at night.",
+            2,
+            "Not as pretty as me.",
+            "Everything's prettier than you.",
+            "We could drill a hole in the wall?",
+            "I'm sure there will be no dire consequences to that decision.",
+            8
+            );
+        
+        story[10].circReact = false;
+        story[10].circPrompt = new Beat(
+            "What's tomorrow?",
+            3,
+            "The zoo, man!",
+            "Oh yeah! Fuck yeah!",
+            "Central Park, remember?",
+            "Oh yeah! Fuck yeah!",
+            "Magic prerelease!",
+            "Oh yeah! Fuck yeah!",
+            8
+            );
+
+        story[10].triReact = false;
+        story[10].triPrompt = new Beat(
+            "We all will. But hey, summer's only 3 months, yeah?",
+            1,
+            "That's the spirit.",
+            "Trying to be optimistic.",
+            8
+            );
+    }
+
+    void BeatEleven() {
+        story[11] = new Beat(
+        "Good god, it's late.",
+        2,
+        "Is 3:30 really late?",
+        null,
+        "Yeah...",
+        null,
+        1
+        );
+
+        story[11].rectReact = false;
+        story[11].rectPrompt = new Beat(
+            "It is if it's in the fucking morning! I'm going to bed.",
+            2,
+            "Same, good night man.",
+            "Good night.",
+            "I'm gonna play a bit more, okay?",
+            "Yeah, 'course. Goodnight dude.",
+            3            
             );
     }
 }
