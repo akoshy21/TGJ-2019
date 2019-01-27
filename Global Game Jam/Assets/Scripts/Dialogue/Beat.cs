@@ -7,8 +7,8 @@ public class Beat
     public string prompt;
 
     public int rCount;
-    public int delay;
-    public int rDelay = 2;
+    public float delay;
+    public float rDelay = 3;
 
     public string rectResponse;
     public bool rectReact = true; // if true, rectangle has a 'Reaction' and does not trigger 'rectPrompt' 
@@ -32,7 +32,7 @@ public class Beat
 
     public AudioClip clip;
 
-    public Beat(string p, int r, string rr, string rreaction, int d)
+    public Beat(string p, int r, string rr, string rreaction, float d)
     {
         prompt = p;
         rCount = r;
@@ -42,7 +42,7 @@ public class Beat
         rectReaction = rreaction;
     }
 
-    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, int d)
+    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, float d)
     {
         prompt = p;
         rCount = r;
@@ -54,7 +54,7 @@ public class Beat
         circReaction = creaction;
     }
 
-    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, int d)
+    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, float d)
     {
         prompt = p;
         rCount = r;
@@ -68,7 +68,7 @@ public class Beat
         triReaction = treaction;
     }
 
-    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, string xr, string x_reaction, int d)
+    public Beat(string p, int r, string rr, string rreaction, string cr, string creaction, string tr, string treaction, string xr, string x_reaction, float d)
     {
         prompt = p;
         rCount = r;
