@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 264619380280186151}
   - component: {fileID: 264619380280186148}
   - component: {fileID: 264619380280186149}
-  - component: {fileID: 7680518632375805562}
+  - component: {fileID: 5281067596806666469}
   m_Layer: 9
   m_Name: Rush_Enemy
   m_TagString: Enemy
@@ -135,7 +135,7 @@ MonoBehaviour:
   rb: {fileID: 264619380280186151}
   cc: {fileID: 264619380280186148}
   enemySpawner: {fileID: 0}
---- !u!114 &7680518632375805562
+--- !u!114 &5281067596806666469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 264619380280186146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb405ed735fc44c4eabf9c841e33468e, type: 3}
+  m_Script: {fileID: 11500000, guid: d84bddd518e2aa64799beeb68d23582f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteNum: 2

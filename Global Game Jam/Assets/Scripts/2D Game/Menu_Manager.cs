@@ -6,6 +6,9 @@ public class Menu_Manager : MonoBehaviour
 {
     public GameObject menuManager;
     public GameObject gameManager;
+    public GameObject menu;
+    public GameObject credits;
+
 
     [Header ("Menu")]
     public string curState = "Menu";
@@ -31,8 +34,9 @@ public class Menu_Manager : MonoBehaviour
     {
         if (curState == "Menu")
         {
-            
-            if(Input.GetAxis("LVertical") > 0.8f && menuSelect == 1)
+            menu.SetActive(true);
+            credits.SetActive(false);
+            if (Input.GetAxis("LVertical") > 0.8f && menuSelect == 1)
             {
                 menuSelect = 0;
                 start.sprite = startOn;
@@ -68,6 +72,15 @@ public class Menu_Manager : MonoBehaviour
         {
             menuManager.SetActive(false);
             gameManager.SetActive(true);
+        }
+        if(curState == "Credit")
+        {
+            menu.SetActive(false);
+            credits.SetActive(true);
+            if (Input.GetButtonDown("Circle"))
+            {
+                curState = "Menu";
+            }
         }
     }
 

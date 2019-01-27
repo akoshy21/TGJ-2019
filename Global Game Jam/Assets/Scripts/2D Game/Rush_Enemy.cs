@@ -18,14 +18,18 @@ public class Rush_Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         enemySpawner = GameObject.Find("Spawner");
-        spawner = enemySpawner.GetComponent<Enemy_Spawner>();
-        speed = spawner.enemySpeed;
+        spawner = enemySpawner.GetComponent<Enemy_Spawner>();      
     }
 
     // Update is called once per frame
     void Update()
     {
+        speed = spawner.enemySpeed;
         rb.velocity = new Vector2(-1 * speed, 0);
+        if(speed <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
