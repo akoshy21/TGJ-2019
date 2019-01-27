@@ -8,6 +8,9 @@ public class DialogueManager : MonoBehaviour
     public Beat[] story;
     public int response;
 
+    public SpriteRenderer fadeOut;
+    public bool fade;
+
     public AudioClip[] clips = new AudioClip[33];
 
     public AudioSource source;
@@ -57,6 +60,11 @@ public class DialogueManager : MonoBehaviour
             StartCoroutine(CheckInput());
         }
 
+        if (fade)
+        {
+            
+        }
+
     }
 
     void CheckStart()
@@ -66,6 +74,15 @@ public class DialogueManager : MonoBehaviour
             // write code to detect 2 collisions or access count in other script and then start dialogue.
         }
 
+    }
+
+    IEnumerator FadeOutFunc()
+    {
+        yield return new WaitForSeconds(3);
+        for (int i = 0; i < 255; i++)
+        {
+            fadeOut.color -= Time.deltaTime * new Color(0, 0, 0, 1);
+        }
     }
 
     IEnumerator TimedStart()
@@ -111,6 +128,11 @@ public class DialogueManager : MonoBehaviour
         {
             if (Input.GetButtonDown("Triangle") || Input.GetKeyDown("a"))
             {
+                if (beatIndex == 11 && currentBeat.prompt.Equals(story[11].rectPrompt))
+                {
+                    fade = true;
+                }
+
                 if (!currentBeat.rectReact)
                 {
                     ActivateButtons(false);
@@ -329,10 +351,10 @@ public class DialogueManager : MonoBehaviour
             "...What?",
             "Like, do you wanna get food?",
             "Now that you mention it...",
-            null,
+            "...",
             "Gimme like ten minutes.",
             "I’ll starve by then. Do you want that blood on your hands?",
-            3
+            4
             );
         story[0].rDelay = 2;
         story[0].clip = clips[23]; // You hungry?
@@ -345,7 +367,7 @@ public class DialogueManager : MonoBehaviour
             "Yeah: we’re garbage people!",
             "I’m down, gimme one sec.",
             "Uhuh",
-            4
+            5
             );
 
         story[0].triPrompt.clip = clips[1];
@@ -365,7 +387,7 @@ public class DialogueManager : MonoBehaviour
             "Okay.",
             "You just asked me like, 4 seconds ago.",
             "I’m still hungry.",
-            3
+            1.5f
             );
 
         story[1].clip = clips[16];
@@ -379,10 +401,10 @@ public class DialogueManager : MonoBehaviour
         story[2] = new Beat("Damn it. I don’t have any cash.",
             2,
             "So no on the taquitos?",
-            null,
+            "...",
             "Lol same.",
-            null,
-            10
+            "...",
+            14
             );
 
         story[2].rDelay = 2;
@@ -393,8 +415,8 @@ public class DialogueManager : MonoBehaviour
             "*Sigh* Do you have any cash?",
             1,
             "Nope",
-            null,
-            10
+            "...",
+            14
             );
         story[2].rectPrompt.clip = clips[2];
 
@@ -404,7 +426,7 @@ public class DialogueManager : MonoBehaviour
             1,
             "*Gargle sympathetically*",
             "You're a freak!",
-            10
+            14
             );
         story[2].rectPrompt.rectPrompt.clip = clips[17];
 
@@ -416,7 +438,7 @@ public class DialogueManager : MonoBehaviour
             "You’re a freak!",
             "...",
             "...",
-            10
+            14
             );
         story[2].circPrompt.clip = clips[17];
 
@@ -430,10 +452,10 @@ public class DialogueManager : MonoBehaviour
             "Great",
             "Cool. Cool...",
             "*Sarcastic* Great.",
-            null,
+            "...",
             "Surprisingly hard?",
-            null,
-            1
+            "...",
+            .5f
             );
 
         story[3].clip = clips[6];
@@ -445,8 +467,8 @@ public class DialogueManager : MonoBehaviour
             "I’m so sorry father.",
             "*Croaks*",
             "YOU’RE not a real gamer!",
-            null,
-            15
+            "...",
+            16
             );
         story[3].circPrompt.clip = clips[18];
 
@@ -458,7 +480,7 @@ public class DialogueManager : MonoBehaviour
             "Sure you’re not just bad at it?",
             "I dunno. I should try dying less, right?",
             "*Nods* Video games.",
-            15
+            16
             );
     }
 
@@ -470,11 +492,11 @@ public class DialogueManager : MonoBehaviour
             "Oh man... I’m so sorry.",
             "Yeah... it’s been fun.",
             "Wait, what?",
-            null,
+            "...",
             "Welp.",
             "Welp indeed.",
             "...",
-            null,
+            "...",
             6
             );
 
@@ -487,7 +509,7 @@ public class DialogueManager : MonoBehaviour
                 "Are you okay?",
                 "Yeah...Maybe. I don't know.",
                 "...",
-                null,
+                "...",
                 6
             );
     }
@@ -498,10 +520,10 @@ public class DialogueManager : MonoBehaviour
                 "...",
                 2,
                 "What're you gonna do?",
-                null,
+                "...",
                 "Do you know why?",
                 "That's the worst part.",
-                5
+                4
             );
 
         story[5].rectReact = false;
@@ -509,9 +531,9 @@ public class DialogueManager : MonoBehaviour
                 "Ya know what the worst part is?",
                 2,
                 "...What?",
-                null,
                 "...",
-                null,
+                "...",
+                "...",
                 1
             );
         story[5].rectPrompt.clip = clips[24];
@@ -522,7 +544,7 @@ public class DialogueManager : MonoBehaviour
             1,
             "...",
             "I don't even know what the point is but I've fucking lost it.",
-            5
+            2
             );
         story[5].rectPrompt.rectPrompt.clip = clips[9];
 
@@ -532,7 +554,7 @@ public class DialogueManager : MonoBehaviour
             1,
             "I'm sorry...",
             "I don't even know what the point is but I've fucking lost it.",
-            5
+            2
             );
         story[5].rectPrompt.circPrompt.clip = clips[9];
 
@@ -546,13 +568,14 @@ public class DialogueManager : MonoBehaviour
                 "Why?",
                 "I dunno, it just feels like she'd be happier if I weren't there. As if talking to me is a chore... or painful, even.",
                 "That's - no way.",
-                null,
+                "...",
                 "*Sarcastic* Same.",
-                null,
+                "...",
                 "Maybe it's just stress.",
-                null,
+                "...",
                 4
             );
+        story[6].clip = clips[9];
 
         story[6].circReact = false;
         story[6].circPrompt = new Beat(
@@ -562,8 +585,9 @@ public class DialogueManager : MonoBehaviour
             "Yeah... But friends drift apart... You know.",
             "You guys seem happy.",
             "Yeah, but happy takes work now.",
-            4
+            6
             );
+        story[6].circPrompt.clip = clips[13];
 
         story[6].triReact = false;
         story[6].triPrompt = new Beat(
@@ -575,8 +599,9 @@ public class DialogueManager : MonoBehaviour
             "Uhuh.",
             "That was literally 2 years ago.",
             "Well maybe you burned her feelings.",
-            4
+            3
             );
+        story[6].triPrompt.clip = clips[27];
 
         story[6].xReact = false;
         story[6].xPrompt = new Beat(
@@ -584,8 +609,9 @@ public class DialogueManager : MonoBehaviour
             1,
             "Like what?",
             "Desolate.",
-            4
+            7
             );
+        story[6].xPrompt.clip = clips[12];
     }
 
     void BeatSeven()
@@ -594,13 +620,14 @@ public class DialogueManager : MonoBehaviour
             "I'm just lost man.",
             3,
             "Well, what about you?",
-            null,
+            "...",
             "Did something happen?",
-            null,
+            "...",
             "Maybe you need a break.",
             "Alex said if we took a break it wouldn't end.",
             4
             );
+        story[7].clip = clips[19];
 
         story[7].rectReact = false;
         story[7].rectPrompt = new Beat(
@@ -608,8 +635,9 @@ public class DialogueManager : MonoBehaviour
             1,
             "Do you hate her?",
             "...",
-            4
+            7
             );
+        story[7].rectPrompt.clip = clips[28];
 
         story[7].circReact = false;
         story[7].circPrompt = new Beat(
@@ -619,8 +647,9 @@ public class DialogueManager : MonoBehaviour
             "Why not? At this point...",
             "It'll be okay, right?",
             "I wish I believed you.",
-            4
+            3
             );
+        story[7].circPrompt.clip = clips[11];
     }
 
     void BeatEight()
@@ -629,13 +658,14 @@ public class DialogueManager : MonoBehaviour
             "What should I do?",
             3,
             "Romantic gesture?",
-            null,
+            "...",
             "I think you know.",
-            null,
+            "...",
             "I'm sorry, I don't know.",
-            null,
+            "...",
             8
             );
+        story[8].clip = clips[6];
 
         story[8].rectReact = false;
         story[8].rectPrompt = new Beat(
@@ -645,6 +675,7 @@ public class DialogueManager : MonoBehaviour
             "*He flashes a faint smile*",
             8
             );
+        story[8].rectPrompt.clip = clips[8];
 
         story[8].circReact = false;
         story[8].circPrompt = new Beat(
@@ -653,9 +684,10 @@ public class DialogueManager : MonoBehaviour
             "I'm sorry man",
             "Me too.",
             "I love you buddy.",
-            null,
-            8
+            "...",
+            4
             );
+        story[8].circPrompt.clip = clips[31];
 
         story[8].circPrompt.circReact = false;
         story[8].circPrompt.circPrompt = new Beat(
@@ -682,11 +714,11 @@ public class DialogueManager : MonoBehaviour
             "*He's staring off somewhere*",
             3,
             "Hey. It's not your fault.",
-            null,
+            "...",
             "At least we put up with you.",
-            null,
+            "...",
             "Don't get wound up by it.",
-            null,
+            "...",
             1
             );
 
@@ -695,11 +727,12 @@ public class DialogueManager : MonoBehaviour
             "Isn't it?",
             2,
             "No dumbass.",
-            null,
+            "...",
             "Ain't anyone's faults.",
             "I know...",
-            5
+            12
             );
+        story[9].rectPrompt.clip = clips[6];
 
         story[9].rectPrompt.rectReact = false;
         story[9].rectPrompt.rectPrompt = new Beat(
@@ -707,8 +740,9 @@ public class DialogueManager : MonoBehaviour
             1,
             "Well I do, you don't have to.",
             "*He laughs*",
-            7
+            5
             );
+        story[9].rectPrompt.clip = clips[9];
 
         story[9].circReact = false;
         story[9].circPrompt = new Beat(
@@ -718,26 +752,19 @@ public class DialogueManager : MonoBehaviour
             "*He beams*",
             "1403's got your back, okay?",
             "I know... Love you guys.",
-            7
+            5
             );
+        story[9].circPrompt.clip = clips[7];
 
         story[9].triReact = false;
         story[9].triPrompt = new Beat(
             "What if I already am?",
             1,
             "...",
-            null,
-            1
-            );
-
-        story[9].triReact = false;
-        story[9].triPrompt = new Beat(
-            "What if I already am?",
-            1,
             "...",
-            null,
-            1
+            14
             );
+        story[9].triPrompt.clip = clips[12];
 
         story[9].triPrompt.triReact = false;
         story[9].triPrompt.triPrompt = new Beat(
@@ -747,7 +774,7 @@ public class DialogueManager : MonoBehaviour
             "Hah. Of course. You haven't been outside in a fucking year.",
             "Just... don't forget it'll be alright.",
             "I won't.",
-            8
+            6
             );
     }
 
@@ -756,13 +783,14 @@ public class DialogueManager : MonoBehaviour
             "*He yawns*",
             3,
             "Wish we had a window.",
-            null,
+            "...",
             "You excited for tomorrow?",
-            null,
+            "...",
             "I'm gonna miss this.",
-            null,
-            8
+            "...",
+            7
             );
+        story[10].clip = clips[29];
 
         story[10].rectReact = false;
         story[10].rectPrompt = new Beat(
@@ -774,19 +802,47 @@ public class DialogueManager : MonoBehaviour
             "I'm sure there will be no dire consequences to that decision.",
             8
             );
+        story[10].rectPrompt.clip = clips[30];
         
         story[10].circReact = false;
         story[10].circPrompt = new Beat(
             "What's tomorrow?",
             3,
             "The zoo, man!",
-            "Oh yeah! Fuck yeah!",
+            "...",
             "Central Park, remember?",
-            "Oh yeah! Fuck yeah!",
+            "...",
             "Magic prerelease!",
-            "Oh yeah! Fuck yeah!",
+            "...",
             8
             );
+
+        story[10].circPrompt.rectPrompt = new Beat(
+            "Oh yeah! Fuck yeah!",
+            1,
+            "Fuck yeah.",
+            "...",
+            6
+            );
+        story[10].circPrompt.rectPrompt.clip = clips[5];
+
+        story[10].circPrompt.circPrompt = new Beat(
+            "Oh yeah! Fuck yeah!",
+            1,
+            "Fuck yeah.",
+            "...",
+            6
+            );
+        story[10].circPrompt.circPrompt.clip = clips[5];
+
+        story[10].circPrompt.triPrompt = new Beat(
+            "Oh yeah! Fuck yeah!",
+            1,
+            "Fuck yeah.",
+            "...",
+            6
+            );
+        story[10].circPrompt.triPrompt.clip = clips[5];
 
         story[10].triReact = false;
         story[10].triPrompt = new Beat(
@@ -796,6 +852,7 @@ public class DialogueManager : MonoBehaviour
             "Trying to be optimistic.",
             8
             );
+        story[10].triPrompt.clip = clips[26];
     }
 
     void BeatEleven() {
@@ -803,21 +860,40 @@ public class DialogueManager : MonoBehaviour
         "Good god, it's late.",
         2,
         "Is 3:30 really late?",
-        null,
+        "...",
         "Yeah...",
-        null,
+        "...",
         1
         );
+        story[11].clip = clips[15];
 
         story[11].rectReact = false;
         story[11].rectPrompt = new Beat(
             "It is if it's in the fucking morning! I'm going to bed.",
             2,
             "Same, good night man.",
-            "Good night.",
+            "...",
             "I'm gonna play a bit more, okay?",
-            "Yeah, 'course. Goodnight dude.",
+            "...",
             3            
             );
+
+        story[11].rectPrompt.rectPrompt = new Beat(
+            "Good night mate!",
+            1,
+            "Night.",
+            "...",
+            6
+            );
+        story[11].rectPrompt.rectPrompt.clip = clips[4];
+
+        story[11].rectPrompt.circPrompt = new Beat(
+            "Good night mate!",
+            1,
+            "Night.",
+            "...",
+            6
+            );
+        story[11].rectPrompt.circPrompt.clip = clips[4];
     }
 }
