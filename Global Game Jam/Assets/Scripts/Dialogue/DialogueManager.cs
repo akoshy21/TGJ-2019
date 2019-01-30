@@ -46,19 +46,28 @@ public class DialogueManager : MonoBehaviour
     bool allowInputTri = true;
     bool allowInputX = true;
 
+    public GameObject menu;
+    private Menu_Manager mm;
+
     // Start is called before the first frame update
     void Start()
     {
         InitStory();
         UpdateText();
-
-        // StartCoroutine(TimedStart()); REMEMBER TO UNCOMMENT
+        mm = menu.GetComponent<Menu_Manager>();
+        //StartCoroutine(TimedStart());
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         CheckStart();
+        if (mm.gameStart)
+        {
+            Debug.Log("Game Started");
+        }
         TimedStart();
         if (start) {
             audioPlayer();
@@ -132,17 +141,30 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    IEnumerator TimedStart()
+    int timer = 2000;
+
+    void TimedStart()
     {
-        yield return new WaitForSeconds(10);
-        if (!start)
+        Debug.Log(timer);
+        if (mm.gameStart)
         {
-            start = true;
-            ActivateButtons(true);
-            thought.gameObject.SetActive(true);
-            promptBubble.gameObject.SetActive(true);
+            if (timer <= 0)
+            {
+                Debug.Log("timer started");
+                if (!start)
+                {
+                    start = true;
+                    ActivateButtons(true);
+                    thought.gameObject.SetActive(true);
+                    promptBubble.gameObject.SetActive(true);
+                }
+                Debug.Log(start);
+            }
+            else
+            {
+                timer -= 1;
+            }
         }
-        Debug.Log(start);
     }
 
     void UpdateText()
