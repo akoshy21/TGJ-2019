@@ -8,8 +8,9 @@ public class DialogueManager : MonoBehaviour
     public Beat[] story;
     public int response;
 
-    public SpriteRenderer fadeOut;
+    public Image fadeOut;
     public bool fade;
+    public bool finalFade;
 
     public AudioClip[] clips = new AudioClip[33];
 
@@ -18,7 +19,9 @@ public class DialogueManager : MonoBehaviour
     public int beatIndex = 0;
     public Beat previousBeat;
     public Beat currentBeat;
-    public bool start = true;
+    public bool start = false;
+
+    public GameObject player;
 
     public Text prompt;
     public Image promptBubble;
@@ -55,6 +58,8 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckStart();
+        TimedStart();
         if (start) {
             audioPlayer();
             StartCoroutine(CheckInput());
@@ -62,35 +67,80 @@ public class DialogueManager : MonoBehaviour
 
         if (fade)
         {
-            
+            FadeTimer();
+            FadeOutFunc();
+        }
+        else {
+            FadeInFunc();
         }
 
+        End();
+
     }
+
 
     void CheckStart()
     {
         if (!start)
         {
-            // write code to detect 2 collisions or access count in other script and then start dialogue.
+            if (player.GetComponent<Player_Controller>().curLives == 1)
+            {
+                start = true;
+                ActivateButtons(true);
+                thought.gameObject.SetActive(true);
+                promptBubble.gameObject.SetActive(true);
+            }
         }
-
     }
 
-    IEnumerator FadeOutFunc()
+    IEnumerator FadeTimer()
     {
         yield return new WaitForSeconds(3);
-        for (int i = 0; i < 255; i++)
+        finalFade = true;
+    }
+
+    void FadeOutFunc()
+    {
+        if (finalFade)
         {
-            fadeOut.color -= Time.deltaTime * new Color(0, 0, 0, 1);
+            Debug.Log("FadeOut");
+            for (int i = 0; i < 255; i++)
+            {
+                fadeOut.color += Time.deltaTime * 3 * new Color(0, 0, 0, 0.1f);
+            }
+        }
+    }
+
+    void FadeInFunc()
+    {
+        if (!finalFade)
+        {
+            Debug.Log("FadeIn");
+
+            fadeOut.color -= Time.deltaTime * 3 * new Color(0, 0, 0, 0.1f);
+        }
+    }
+
+    IEnumerator End()
+    {
+        if (beatIndex == 12)
+        {
+            yield return new WaitForSeconds(10);
+            start = false;
+            thought.gameObject.SetActive(false);
+            promptBubble.gameObject.SetActive(false);
         }
     }
 
     IEnumerator TimedStart()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         if (!start)
         {
             start = true;
+            ActivateButtons(true);
+            thought.gameObject.SetActive(true);
+            promptBubble.gameObject.SetActive(true);
         }
         Debug.Log(start);
     }
