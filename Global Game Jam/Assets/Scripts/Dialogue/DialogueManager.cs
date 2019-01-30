@@ -59,15 +59,11 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
 
         CheckStart();
-        if (mm.gameStart)
-        {
-            Debug.Log("Game Started");
-        }
         TimedStart();
         if (start) {
             audioPlayer();
@@ -139,18 +135,16 @@ public class DialogueManager : MonoBehaviour
             thought.gameObject.SetActive(false);
             promptBubble.gameObject.SetActive(false);
         }
+
+        yield return null;
     }
 
-    int timer = 2000;
-
-    void TimedStart()
+    IEnumerator TimedStart()
     {
-        Debug.Log(timer);
         if (mm.gameStart)
         {
-            if (timer <= 0)
+            yield return new WaitForSeconds(15);
             {
-                Debug.Log("timer started");
                 if (!start)
                 {
                     start = true;
@@ -160,10 +154,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 Debug.Log(start);
             }
-            else
-            {
-                timer -= 1;
-            }
+            yield return null;
         }
     }
 
