@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Menu_Manager : MonoBehaviour
 {
+    public bool gameStart = false;
+
     public GameObject menuManager;
     public GameObject gameManager;
     public GameObject menu;
@@ -70,6 +72,7 @@ public class Menu_Manager : MonoBehaviour
         }
         else if (curState == "Game")
         {
+            gameStart = true;
             menuManager.SetActive(false);
             gameManager.SetActive(true);
         }
