@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -76,16 +77,26 @@ public class DialogueManager : MonoBehaviour
 
         StartCoroutine(End());
 
+        Escape();
     }
 
     void Escape()
     {
+        Debug.Log("ESC");
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
     }
 
+    void Restart()
+    {
+        Debug.Log("RESTART");
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("KevinScene");
+        }
+    }
 
     void CheckStart()
     {
@@ -185,7 +196,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (allowInputRect)
         {
-            if (Input.GetButtonDown("Triangle") || Input.GetKeyDown("a"))
+            if (Input.GetButtonDown("Triangle") || Input.GetKeyDown(KeyCode.Alpha1))
             {
                 if (beatIndex == 11 && currentBeat.prompt.Equals(story[11].rectPrompt))
                 {
@@ -220,7 +231,7 @@ public class DialogueManager : MonoBehaviour
         }
         if (allowInputCirc)
         {
-            if (Input.GetButtonDown("Square") || Input.GetKeyDown("d"))
+            if (Input.GetButtonDown("Square") || Input.GetKeyDown(KeyCode.Alpha2))
             {
                 if (!currentBeat.circReact)
                 {
@@ -249,7 +260,7 @@ public class DialogueManager : MonoBehaviour
         }
         if (allowInputTri)
         {
-            if (Input.GetButtonDown("Circle") || Input.GetKeyDown("w"))
+            if (Input.GetButtonDown("Circle") || Input.GetKeyDown(KeyCode.Alpha3))
             {
                 if (beatIndex == 0)
                 {
@@ -284,7 +295,7 @@ public class DialogueManager : MonoBehaviour
         }
         if (allowInputX)
         {
-            if (Input.GetButtonDown("Cross") || Input.GetKeyDown("s"))
+            if (Input.GetButtonDown("Cross") || Input.GetKeyDown(KeyCode.Alpha4))
             {
                 if (!currentBeat.xReact)
                 {
