@@ -11,6 +11,10 @@ public class CameraMovement : MonoBehaviour
     public bool TV = true;
 
     private float startRotate;
+
+    private float horizontal;
+
+    private float vertical;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +24,18 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("RHorizontal");
-        float vertical = Input.GetAxis("RVertical");
+        if (ControllerCheck.ControllerConnected)
+        {
+            Debug.Log("FOUND");
+            horizontal = Input.GetAxis("RHorizontal");
+            vertical = Input.GetAxis("RVertical");
+        }
+        else
+        {
+            horizontal = Input.GetAxis("PCHorizontal");
+            vertical = Input.GetAxis("PCVertical");
+        }
 
-   
         if (transform.eulerAngles.y > rBound && transform.eulerAngles.y < 120) 
             TV = false;
         else
