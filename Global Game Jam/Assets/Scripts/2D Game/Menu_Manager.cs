@@ -21,6 +21,8 @@ public class Menu_Manager : MonoBehaviour
     public Sprite startOn;
     public Sprite creditOff, creditOn;
 
+    public bool enterUp = true;
+
     public float freq;
     private float freqCap;
 
@@ -34,16 +36,23 @@ public class Menu_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Return) && !enterUp)
+        {
+            enterUp = true;
+        }
+
         if (curState == "Menu")
         {
             menu.SetActive(true);
             credits.SetActive(false);
-            if (Input.GetAxis("LVertical") > 0.8f && menuSelect == 1)
+
+            if (Input.GetAxis("LVertical") > 0.8f && menuSelect == 1 || Input.GetKeyDown(KeyCode.W) && menuSelect == 1)
             {
+                Debug.Log("UP");
                 menuSelect = 0;
                 start.sprite = startOn;
             }
-            if (Input.GetAxis("LVertical") < -0.8f && menuSelect == 0)
+            if (Input.GetAxis("LVertical") < -0.8f && menuSelect == 0 || Input.GetKeyDown(KeyCode.S) && menuSelect == 0)
             {
                 menuSelect = 1;
                 credit.sprite = creditOn;
@@ -54,9 +63,10 @@ public class Menu_Manager : MonoBehaviour
                 Blink(start, startOn, startOff, freqCap);
                 
                 credit.sprite = creditOff;
-                if (Input.GetButtonDown("Cross"))
+                if (Input.GetButtonDown("Cross") || (Input.GetKeyDown(KeyCode.Return) && enterUp))
                 {
                     curState = "Game";
+                    enterUp = false;
                 }
             }
             if (menuSelect == 1)
@@ -64,9 +74,10 @@ public class Menu_Manager : MonoBehaviour
                 Blink(credit, creditOn, creditOff, freqCap);
                 start.sprite = startOff;
                 
-                if (Input.GetButtonDown("Cross"))
+                if (Input.GetButtonDown("Cross") || (Input.GetKeyDown(KeyCode.Return) && enterUp))
                 {
                     curState = "Credit";
+                    enterUp = false;
                 }
             }
         }
@@ -80,8 +91,10 @@ public class Menu_Manager : MonoBehaviour
         {
             menu.SetActive(false);
             credits.SetActive(true);
-            if (Input.GetButtonDown("Circle"))
+
+            if (Input.GetButtonDown("Circle") || (Input.GetKeyDown(KeyCode.Return) && enterUp))
             {
+                Debug.Log("BACKSIES");
                 curState = "Menu";
             }
         }

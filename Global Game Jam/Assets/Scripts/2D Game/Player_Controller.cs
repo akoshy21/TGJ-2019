@@ -65,7 +65,13 @@ public class Player_Controller : MonoBehaviour
             dead = false;
             skore += 1;
             score.text = ("" + (skore / 10));
-            rb.velocity = new Vector2(Input.GetAxis("LHorizontal") * pSpd, Input.GetAxis("LVertical") * pSpd);
+            if (ControllerCheck.ControllerConnected)
+            {
+                rb.velocity = new Vector2(Input.GetAxis("LHorizontal") * pSpd, Input.GetAxis("LVertical") * pSpd);
+            }
+            else {
+                rb.velocity = new Vector2(Input.GetAxis("WASDHorizontal") * pSpd, Input.GetAxis("WASDVertical") * pSpd);
+            }
             lives.fillAmount = curLives / maxLives;
 
             screenShake();

@@ -87,9 +87,9 @@ public class DialogueManager : MonoBehaviour
 
     void Escape()
     {
-        Debug.Log("ESC");
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("ESC");
             Application.Quit();
         }
     }
@@ -139,8 +139,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (!finalFade)
         {
-            Debug.Log("FadeIn");
-
             fadeOut.color -= Time.deltaTime * 3 * new Color(0, 0, 0, 0.1f);
         }
     }
