@@ -1,0 +1,82 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Analytics;
+
+public class CameraMovement : MonoBehaviour
+{
+    public float rBound;
+    public float lBound;
+
+    public bool TV = true;
+
+    private float startRotate;
+
+    private float horizontal;
+
+    private float vertical;
+    // Start is called before the first frame update
+    void Start()
+    {
+        startRotate = transform.eulerAngles.x;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (ControllerCheck.ControllerConnected)
+        {
+            Debug.Log("FOUND");
+            horizontal = Input.GetAxis("RHorizontal");
+            vertical = Input.GetAxis("RVertical");
+        }
+        else
+        {
+            horizontal = Input.GetAxis("PCHorizontal");
+            vertical = Input.GetAxis("PCVertical");
+        }
+
+        if (transform.eulerAngles.y > rBound && transform.eulerAngles.y < 120) 
+            TV = false;
+        else
+        {
+            TV = true;
+        }
+        
+        if (TV)
+        {
+            if (transform.eulerAngles.y < 180)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(transform.eulerAngles.x, horizontal * 80, 0),
+                    1.5f * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(vertical * 15 + startRotate, transform.eulerAngles.y, 0),
+                    5.5f * Time.deltaTime);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+           }
+            else
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(transform.eulerAngles.x, horizontal * 20, 0),
+                    7.5f * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation,
+                    Quaternion.Euler(vertical * 15 + startRotate, transform.eulerAngles.y, 0),
+                    5.5f * Time.deltaTime);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+            }
+        }
+        if (!TV)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.Euler(transform.eulerAngles.x, (horizontal * 40) +60, 0),
+                2.5f * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.Euler(vertical * 15 + startRotate, transform.eulerAngles.y, 0),
+                5.5f * Time.deltaTime);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        }
+        
+    }
+}
+
